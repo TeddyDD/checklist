@@ -109,13 +109,13 @@ func errorsTable() []testcase {
 
 func assertEqual(t *testing.T, expected, got interface{}, msg string) {
 	if expected != got {
-		t.Fatalf("%s:\n\t expected: %v\n\tgot: %v\n", msg, expected, got)
+		t.Errorf("%s:\n\t expected: %v\n\tgot: %v\n", msg, expected, got)
 	}
 }
 
 func assertNotNil(t *testing.T, got interface{}, msg string) {
 	if got == nil {
-		t.Fatalf("%s", msg)
+		t.Errorf("%s", msg)
 	}
 }
 
@@ -127,10 +127,10 @@ func TestSimpleLexing(t *testing.T) {
 			for _, expected := range test.output {
 				got := l.nextToken()
 				if got.typ != expected.typ {
-					t.Fatalf("wrong token type, got %q, expected %q\n token %q\n input: %s ", got.typ, expected.typ, got, test.input)
+					t.Errorf("wrong token type, got %q, expected %q\n token %q\n input: %s ", got.typ, expected.typ, got, test.input)
 				}
 				if got.val != expected.val {
-					t.Fatalf("wrong token value, got %q, expected %q\n token: %q\ninput: %s", got.val, expected.val, got, test.input)
+					t.Errorf("wrong token value, got %q, expected %q\n token: %q\ninput: %s", got.val, expected.val, got, test.input)
 				}
 			}
 		})
@@ -145,7 +145,7 @@ func TestLexerErrors(t *testing.T) {
 			for _, expected := range test.output {
 				got := l.nextToken()
 				if got.typ != expected.typ {
-					t.Fatalf("wrong token type, got %q, expected %q, token: %q", got.typ, expected.typ, got)
+					t.Errorf("wrong token type, got %q, expected %q, token: %q", got.typ, expected.typ, got)
 				}
 			}
 		})
